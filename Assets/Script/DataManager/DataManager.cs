@@ -23,9 +23,10 @@ public class DataManager : MonoBehaviour
     }
 
 
-    public List<SpawnData> SpawnDatas = new List<SpawnData>();
-    public List<Enemy> EnemyDatas = new List<Enemy>();
 
+    public List<SpawnData> SpawnDatas = new List<SpawnData>();
+    public List<EnemyState> EnemyDatas = new List<EnemyState>();
+    
 
     void Start()
     {
@@ -61,8 +62,11 @@ public class DataManager : MonoBehaviour
         string text = sr.ReadLine();
         while ((text = sr.ReadLine()) != null)
         {
-
-            Enemy ed = new Enemy();
+            if (text == "")
+            {
+                continue;
+            }
+            EnemyState ed = new EnemyState();
             ed.DataInit(text);
             EnemyDatas.Add(ed);
         }

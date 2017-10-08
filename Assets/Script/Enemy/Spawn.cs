@@ -81,8 +81,12 @@ public class Spawn : MonoBehaviour
     {
 
         var ene = Instantiate(enemy);
+        var enecom = 
+            ene.GetComponent<Enemy>();
+        enecom.state = DataManager.Instans.EnemyDatas[0];
         ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
 
+      
         float ti = 0.5f;
         StartCoroutine(Tween(ti, (t) =>
         {
@@ -98,7 +102,7 @@ public class Spawn : MonoBehaviour
                      spawnPoint[spawn.spawnIndex].transform.position, t);
             }, () =>
             {
-                ene.GetComponent<Enemy>().isLive = false;
+                enecom.isLive = false;
                 Destroy(ene);
             }));
         }));

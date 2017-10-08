@@ -4,6 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public struct EnemyState
+{
+    public int ID;                         //ID
+    public string nameing;                 //名前
+    public int atackPower;                 //攻撃力
+    public int hitPoint;                   //Hp
+    public float deylayTime;               //何秒後に打つか
+    public float moveTime;                 //移動時間
+    public int ReactionID;                 //リアクションID
+    public void DataInit(string _d)
+    {
+        string[] d = _d.Split(',');
+        ID = Int32.Parse(d[0]);
+        nameing = d[1];
+        atackPower = Int32.Parse(d[2]);
+        hitPoint = Int32.Parse(d[3]);
+        deylayTime = float.Parse(d[4]);
+        moveTime = float.Parse(d[5]);
+        ReactionID = Int32.Parse(d[6]);
+    }
+}
+
 public class Enemy : MonoBehaviour
 {
 
@@ -16,30 +38,30 @@ public class Enemy : MonoBehaviour
         SUFFERING = 4,  //苦しむ
         WALK = 6,       //歩き
     }
-    AnimationState state;
+    AnimationState animationState;
     SpriteRenderer sprite;
 
     static Sprite[] sprites;
-    public bool isLive = true;      //生きてるかどうか
-    int ID;             //ID
-    string nameing;     //名前
-    int atackPower;     //攻撃力
-    int hitPoint;       //Hp
-    float deylayTime;   //何秒後に打つか
-    float moveTime;     //移動時間
-    int ReactionID;
 
+    public EnemyState state;
+    public bool isLive = true;      //生きてるかどうか
+    
+    public Enemy(Enemy ene)
+    {
+        
+    }
     public void DataInit(string _d)
     {
-        return;
-        string[] d = _d.Split(',');
-        ID = Int32.Parse(d[0]);
-        nameing = d[1];
-        atackPower = Int32.Parse(d[2]);
-        hitPoint = Int32.Parse(d[3]);
-        deylayTime = float.Parse(d[4]);
-        moveTime = float.Parse(d[5]);
-        ReactionID = Int32.Parse(d[6]);
+        state.DataInit(_d);
+
+        //string[] d = _d.Split(',');
+        //state.ID = Int32.Parse(d[0]);
+        //state.nameing = d[1];
+        //state.atackPower = Int32.Parse(d[2]);
+        //state.hitPoint = Int32.Parse(d[3]);
+        //state.deylayTime = float.Parse(d[4]);
+        //state.moveTime = float.Parse(d[5]);
+        //state.ReactionID = Int32.Parse(d[6]);
 
     }
     void Start()
@@ -81,7 +103,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator Motion(AnimationState ani)
     {
-        state = ani;
+        animationState = ani;
         sprite.sprite = sprites[(int)ani];
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(Walk());
@@ -89,7 +111,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator Suffring()
     {
-        state = AnimationState.SUFFERING;
+        animationState = AnimationState.SUFFERING;
         float time = 0.5f;
         int i = 0;
         i = 4;
@@ -102,7 +124,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator Walk()
     {
-        state = AnimationState.WALK;
+        animationState = AnimationState.WALK;
         float time = 0.2f;
         int i = 0;
         while (true)
@@ -110,14 +132,14 @@ public class Enemy : MonoBehaviour
             i = 6;
             sprite.sprite = sprites[i];
             yield return new WaitForSeconds(time);
-            if (state != AnimationState.WALK)
+            if (animationState != AnimationState.WALK)
                 yield break;
 
 
             i = 7;
             sprite.sprite = sprites[i];
             yield return new WaitForSeconds(time);
-            if (state != AnimationState.WALK)
+            if (animationState != AnimationState.WALK)
                 yield break;
         }
     }
