@@ -19,14 +19,55 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    [SerializeField]
-    AudioSource seAudioSource;
+    //[SerializeField]
+    //AudioSource seAudioSource;
 
     [SerializeField]
     AudioSource bgmAudioSource;
 
+    private Dictionary<string, AudioClip> seAudioClips;
+
+
+    //SEを鳴らす
+    public void PlaySE(string se_name)
+    {
+        var audsou = gameObject.AddComponent<AudioSource>();
+        audsou.clip = seAudioClips[se_name];
+        StartCoroutine(AudioSourceIns(audsou));
+    }
+
+    public void PlayBGM(string se_name)
+    {
+        var audsou = gameObject.AddComponent<AudioSource>();
+        audsou.clip = seAudioClips[se_name];
+        StartCoroutine(AudioSourceIns(audsou));
+    }
+
+
+
+    //なり終わったら消す
+    IEnumerator AudioSourceIns(AudioSource au)
+    {
+        while (au.isPlaying)
+        {
+            yield return null;
+        }
+        Destroy(au);
+    }
+
+    public void Load(string filename)
+    {
+        var audios = Resources.LoadAll<AudioClip>(filename);
+        foreach (var a in audios)
+        {
+            Debug.Log("効果音  " + a.name);
+            seAudioClips.Add(a.name, a);
+        }
+    }
+
     void Start () {
         var getIns = Instans;
+        Load("Audio/SE");
     }
 	
 	

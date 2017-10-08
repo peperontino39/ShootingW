@@ -8,4 +8,5 @@
 *.suo
 *.csproj
 *.user
+*.meta
 Assets/Resources/NotShare/
