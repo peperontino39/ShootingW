@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
-    static private DataManager instans = null;
-    static public DataManager Instans
+    static private AudioManager instans = null;
+    static public AudioManager Instans
     {
         get
         {
             if (instans == null)
             {
-                var obj = Instantiate(new GameObject("DataManager"));
-                var _instans = obj.AddComponent<DataManager>();
+                var obj = Instantiate(new GameObject("AudioManager"));
+                var _instans = obj.AddComponent<AudioManager>();
                 instans = _instans;
             }
             return instans;
         }
     }
-
+    void Awake()
+    {
+        instans = this;
+    }
     //[SerializeField]
     //AudioSource seAudioSource;
 

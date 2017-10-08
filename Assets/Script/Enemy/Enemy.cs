@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,14 +18,36 @@ public class Enemy : MonoBehaviour
     }
     AnimationState state;
     SpriteRenderer sprite;
-    Sprite[] sprites;
 
+    static Sprite[] sprites;
+    public bool isLive = true;      //生きてるかどうか
+    int ID;             //ID
+    string nameing;     //名前
+    int atackPower;     //攻撃力
+    int hitPoint;       //Hp
+    float deylayTime;   //何秒後に打つか
+    float moveTime;     //移動時間
+    int ReactionID;
 
+    public void DataInit(string _d)
+    {
+        return;
+        string[] d = _d.Split(',');
+        ID = Int32.Parse(d[0]);
+        nameing = d[1];
+        atackPower = Int32.Parse(d[2]);
+        hitPoint = Int32.Parse(d[3]);
+        deylayTime = float.Parse(d[4]);
+        moveTime = float.Parse(d[5]);
+        ReactionID = Int32.Parse(d[6]);
+
+    }
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
-        sprites = Resources.LoadAll<Sprite>("NotShare/素材");
+        if (sprites == null)
+            sprites = Resources.LoadAll<Sprite>("NotShare/素材");
 
+        sprite = GetComponent<SpriteRenderer>();
         StartCoroutine(Walk());
     }
 
@@ -65,7 +87,6 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Walk());
         //sprite.sprite = sprites[(int)AnimationState.NORMAL];
     }
-
     IEnumerator Suffring()
     {
         state = AnimationState.SUFFERING;
