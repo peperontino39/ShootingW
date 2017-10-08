@@ -33,14 +33,15 @@ public class AudioManager : MonoBehaviour {
     {
         var audsou = gameObject.AddComponent<AudioSource>();
         audsou.clip = seAudioClips[se_name];
+        audsou.Play();
         StartCoroutine(AudioSourceIns(audsou));
     }
-
+    //BGMを鳴らす
     public void PlayBGM(string se_name)
     {
-        var audsou = gameObject.AddComponent<AudioSource>();
-        audsou.clip = seAudioClips[se_name];
-        StartCoroutine(AudioSourceIns(audsou));
+        bgmAudioSource.clip = Resources.Load<AudioClip>("Audio/BGM" + se_name);
+        bgmAudioSource.Play();
+
     }
 
 
