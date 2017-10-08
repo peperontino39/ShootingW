@@ -9,5 +9,6 @@
 *.csproj
 *.user
 *.meta
+*.sdf
+*.opendb
 Assets/Resources/NotShare/
-ShootingW.sdf
