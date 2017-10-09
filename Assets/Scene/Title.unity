@@ -346,16 +346,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114727408364775186, guid: b00295e475e7c194584c8a8da076c953,
-        type: 2}
-      propertyPath: m_UiScaleMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114727408364775186, guid: b00295e475e7c194584c8a8da076c953,
-        type: 2}
-      propertyPath: m_ScaleFactor
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b00295e475e7c194584c8a8da076c953, type: 2}
   m_IsPrefabParent: 0
