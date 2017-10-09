@@ -5,11 +5,24 @@ using UnityEngine;
 
 public class Fade : MonoBehaviour {
 
+    private static Fade instance;
+
+    public static Fade Instance{
+        get { return instance; }
+    }
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        DontDestroyOnLoad(gameObject); 
+    }
+
+    [SerializeField]
     float fadeSpeed = 0.02f;        //透明度が変わるスピードを管理
     float red, green, blue, alfa;   //パネルの色、不透明度を管理
 
-    public bool isFadeOut = false;  //フェードアウト処理の開始、完了を管理するフラグ
-    public bool isFadeIn = false;   //フェードイン処理の開始、完了を管理するフラグ
+    public  bool isFadeOut = false;  //フェードアウト処理の開始、完了を管理するフラグ
+    public  bool isFadeIn = false;   //フェードイン処理の開始、完了を管理するフラグ
 
     [SerializeField]
     Image fadeImage;                //透明度を変更するパネルのイメージ
