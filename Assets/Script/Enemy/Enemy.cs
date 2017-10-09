@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
 
     public void DataInit(string _d)
     {
-        return;
         string[] d = _d.Split(',');
         ID = Int32.Parse(d[0]);
         nameing = d[1];
