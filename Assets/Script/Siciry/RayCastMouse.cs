@@ -13,15 +13,18 @@ public class RayCastMouse : MonoBehaviour {
             // クリックしたスクリーン座標をrayに変換
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction, new Color(1, 0, 0, 1));
-//             Rayの当たったオブジェクトの情報を格納する
+            //Rayの当たったオブジェクトの情報を格納する
             RaycastHit hit = new RaycastHit();
-            // オブジェクトにrayが当たった時
+            
+            //オブジェクトにrayが当たった時
             if (Physics.Raycast(ray, out hit,distance))
             {
-              
                 // rayが当たったオブジェクトの名前を取得
-                string objectName = hit.collider.gameObject.name;
-                Debug.Log(objectName);
+                var _enemy = hit.collider.gameObject.GetComponent<Enemy>();
+                if(_enemy != null)
+                {
+                    _enemy.AddDamage(1);
+                }
             }
         }
         

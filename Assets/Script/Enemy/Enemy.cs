@@ -4,31 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class Enemy : MonoBehaviour
+public struct EnemyState
 {
-
-    enum AnimationState
-    {
-        NORMAL = 0,     //通常
-        SMILE = 1,      //笑顔
-        CRY = 2,        //泣く
-        ANGER = 3,      //怒り
-        SUFFERING = 4,  //苦しむ
-        WALK = 6,       //歩き
-    }
-    AnimationState state;
-    SpriteRenderer sprite;
-
-    static Sprite[] sprites;
-    public bool isLive = true;      //生きてるかどうか
-    int ID;             //ID
-    string nameing;     //名前
-    int atackPower;     //攻撃力
-    int hitPoint;       //Hp
-    float deylayTime;   //何秒後に打つか
-    float moveTime;     //移動時間
-    int ReactionID;
-
+    public int ID;                         //ID
+    public string nameing;                 //名前
+    public int atackPower;                 //攻撃力
+    public int hitPoint;                   //Hp
+    public float deylayTime;               //何秒後に打つか
+    public float moveTime;                 //移動時間
+    public int ReactionID;                 //リアクションID
     public void DataInit(string _d)
     {
         string[] d = _d.Split(',');
@@ -39,8 +23,50 @@ public class Enemy : MonoBehaviour
         deylayTime = float.Parse(d[4]);
         moveTime = float.Parse(d[5]);
         ReactionID = Int32.Parse(d[6]);
-
     }
+}
+
+public class Enemy : MonoBehaviour
+{
+
+    public enum AnimationState
+    {
+        NORMAL = 0,     //通常
+        SMILE = 1,      //笑顔
+        CRY = 2,        //泣く
+        ANGER = 3,      //怒り
+        SUFFERING = 4,  //苦しむ
+        WALK = 6,       //歩き
+    }
+    AnimationState animationState;
+    SpriteRenderer sprite;
+
+    static Sprite[] sprites;
+
+    public EnemyState state;
+    public bool isLive = true;      //生きてるかどうか
+
+
+    public void DataInit(string _d)
+    {
+        state.DataInit(_d);
+    }
+
+    public void AddDamage(int _damage)
+    {
+        state.hitPoint -= _damage;
+        if (state.hitPoint <= 0)
+        {
+            StartCoroutine(Suffring(() =>
+            {
+                isLive = false;
+
+                Destroy(gameObject);
+            }));
+        }
+    }
+
+
     void Start()
     {
         if (sprites == null)
@@ -49,6 +75,7 @@ public class Enemy : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         StartCoroutine(Walk());
     }
+
 
     void Update()
     {
@@ -73,22 +100,32 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(Suffring());
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
 
+    }
+    public void faceCange(AnimationState ani)
+    {
+        if (state.hitPoint > 0)
+        {
+            animationState = ani;
+            sprite.sprite = sprites[(int)ani];
         }
     }
-    IEnumerator Motion(AnimationState ani)
+
+    public IEnumerator Motion(AnimationState ani, Action callback = null)
     {
-        state = ani;
+        animationState = ani;
         sprite.sprite = sprites[(int)ani];
         yield return new WaitForSeconds(1.0f);
+        if (callback != null)
+        {
+            callback();
+        }
         StartCoroutine(Walk());
         //sprite.sprite = sprites[(int)AnimationState.NORMAL];
     }
-    IEnumerator Suffring()
+    IEnumerator Suffring(Action callback = null)
     {
-        state = AnimationState.SUFFERING;
+        animationState = AnimationState.SUFFERING;
         float time = 0.5f;
         int i = 0;
         i = 4;
@@ -98,10 +135,14 @@ public class Enemy : MonoBehaviour
         sprite.sprite = sprites[i];
         yield return new WaitForSeconds(time);
         StartCoroutine(Walk());
+        if (callback != null)
+        {
+            callback();
+        }
     }
     IEnumerator Walk()
     {
-        state = AnimationState.WALK;
+        animationState = AnimationState.WALK;
         float time = 0.2f;
         int i = 0;
         while (true)
@@ -109,18 +150,14 @@ public class Enemy : MonoBehaviour
             i = 6;
             sprite.sprite = sprites[i];
             yield return new WaitForSeconds(time);
-            if (state != AnimationState.WALK)
+            if (animationState != AnimationState.WALK)
                 yield break;
-
-
             i = 7;
             sprite.sprite = sprites[i];
             yield return new WaitForSeconds(time);
-            if (state != AnimationState.WALK)
+            if (animationState != AnimationState.WALK)
                 yield break;
         }
     }
-
-
 
 }

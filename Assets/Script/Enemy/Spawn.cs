@@ -9,7 +9,8 @@ public class Spawn : MonoBehaviour
 
     public GameObject enemy;
     public GameObject[] spawnPoint;
-    public List<List<SpawnData>> spawnDatas 
+
+    public List<List<SpawnData>> spawnDatas
         = new List<List<SpawnData>>();
 
 
@@ -43,11 +44,10 @@ public class Spawn : MonoBehaviour
 
     IEnumerator StartEnemySpawn(int index)
     {
-
         var sdi = spawnDatas[index];
         for (int i = 0; i < sdi.Count; i++)
         {
-            var ene = sdi[i];
+            SpawnData ene = sdi[i];
             yield return new WaitForSeconds(ene.spawnTime);
 
             var enedata = EnemySpawn(ene).GetComponent<Enemy>();
@@ -79,41 +79,25 @@ public class Spawn : MonoBehaviour
 
     GameObject EnemySpawn(SpawnData spawn)
     {
-
         var ene = Instantiate(enemy);
+        var enecom = ene.GetComponent<Enemy>();
+        enecom.state = DataManager.Instans.EnemyDatas[spawn.enemyType];
         ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
 
-        float ti = 0.5f;
-        StartCoroutine(Tween(ti, (t) =>
+        var targets = spawnPoint[spawn.spawnIndex].transform.GetChild(spawn.spawnDirection);
+        float ti = 1f;
+        StartCoroutine(Easing.Tween(ti, (t) =>
         {
-            ene.transform.position = Vector3.Lerp(
-                spawnPoint[spawn.spawnIndex].transform.position,
-                 spawnPoint[spawn.spawnIndex].transform.position + new Vector3(-1, 0, 0), t);
+        ene.transform.position = Vector3.Lerp(
+            spawnPoint[spawn.spawnIndex].transform.position,
+             targets.position,t);// + new Vector3(-1, 0, 0), t);
         }, () =>
         {
-            StartCoroutine(Tween(ti, (t) =>
-            {
-                ene.transform.position = Vector3.Lerp(
-                    spawnPoint[spawn.spawnIndex].transform.position + new Vector3(-1, 0, 0),
-                     spawnPoint[spawn.spawnIndex].transform.position, t);
-            }, () =>
-            {
-                ene.GetComponent<Enemy>().isLive = false;
-                Destroy(ene);
-            }));
+            enecom.faceCange(Enemy.AnimationState.SMILE);
+            
         }));
         return ene;
     }
-    IEnumerator Tween(float time, Action<float> call, Action callback = null)
-    {
-        for (float t = 0; t < time; t += Time.deltaTime)
-        {
-            call(t / time);
-            yield return null;
-        }
-        call(1.0f);
-        if (callback != null)
-            callback();
-    }
 
+   
 }
