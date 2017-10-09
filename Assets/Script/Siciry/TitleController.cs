@@ -24,6 +24,7 @@ public class TitleController : MonoBehaviour {
     void Start()
     {
         dead.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -38,6 +39,7 @@ public class TitleController : MonoBehaviour {
             dead.SetActive(true);
             face.SetActive(false);
             time += Time.deltaTime;
+            
         }
         if (time >= time_max)
         {
