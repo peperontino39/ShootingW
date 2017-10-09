@@ -33,8 +33,8 @@ public class Enemy : MonoBehaviour
     {
         NORMAL = 0,     //通常
         SMILE = 1,      //笑顔
-        CRY = 2,        //泣く
-        ANGER = 3,      //怒り
+        CRY = 3,        //泣く
+        ANGER = 2,      //怒り
         SUFFERING = 4,  //苦しむ
         WALK = 6,       //歩き
     }
@@ -42,7 +42,8 @@ public class Enemy : MonoBehaviour
     SpriteRenderer sprite;
 
     static Sprite[] sprites;
-
+    [SerializeField]
+    Player player;
     public EnemyState state;
     public bool isLive = true;      //生きてるかどうか
 
@@ -109,6 +110,21 @@ public class Enemy : MonoBehaviour
             animationState = ani;
             sprite.sprite = sprites[(int)ani];
         }
+        StartCoroutine(Easing.Deyray(1, () =>
+        {
+            if (state.hitPoint > 0)
+            {
+                animationState = AnimationState.ANGER;
+                sprite.sprite = sprites[(int)animationState];
+                StartCoroutine(Easing.Deyray(1, () =>
+                {
+                    faceCange(AnimationState.SMILE);
+                }));
+                player.Damage(state.atackPower);
+            }
+
+        }));
+
     }
 
     public IEnumerator Motion(AnimationState ani, Action callback = null)
@@ -125,6 +141,10 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator Suffring(Action callback = null)
     {
+        if (animationState == AnimationState.SUFFERING)
+        {
+            yield break;
+        }
         animationState = AnimationState.SUFFERING;
         float time = 0.5f;
         int i = 0;

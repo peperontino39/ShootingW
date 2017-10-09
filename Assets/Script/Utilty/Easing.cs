@@ -17,6 +17,12 @@ public class Easing
         if (callback != null)
             callback();
     }
+    static public IEnumerator Deyray(float time,Action call)
+    {
+        yield return new WaitForSeconds(time);
+        call();
+    }
+
     static public float InQuad(float t)
     {
         return t * t;

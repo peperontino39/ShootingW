@@ -88,6 +88,7 @@ public class Spawn : MonoBehaviour
         float ti = 1f;
         StartCoroutine(Easing.Tween(ti, (t) =>
         {
+            if (enecom.state.hitPoint <= 0) return;
         ene.transform.position = Vector3.Lerp(
             spawnPoint[spawn.spawnIndex].transform.position,
              targets.position,t);// + new Vector3(-1, 0, 0), t);

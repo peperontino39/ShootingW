@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
     static private AudioManager instans = null;
     static public AudioManager Instans
@@ -26,9 +27,9 @@ public class AudioManager : MonoBehaviour {
     //AudioSource seAudioSource;
 
     [SerializeField]
-    AudioSource bgmAudioSource;
+    AudioSource bgmAudioSource = null;
 
-    private Dictionary<string, AudioClip> seAudioClips;
+    private Dictionary<string, AudioClip> seAudioClips = new Dictionary<string, AudioClip>();
 
 
     //SEを鳴らす
@@ -69,10 +70,11 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    void Start () {
+    void Start()
+    {
         var getIns = Instans;
         Load("Audio/SE");
     }
-	
-	
+
+
 }

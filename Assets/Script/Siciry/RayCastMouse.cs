@@ -15,10 +15,11 @@ public class RayCastMouse : MonoBehaviour {
             Debug.DrawRay(ray.origin, ray.direction, new Color(1, 0, 0, 1));
             //Rayの当たったオブジェクトの情報を格納する
             RaycastHit hit = new RaycastHit();
-            
+            AudioManager.Instans.PlaySE("ban");
             //オブジェクトにrayが当たった時
             if (Physics.Raycast(ray, out hit,distance))
             {
+                
                 // rayが当たったオブジェクトの名前を取得
                 var _enemy = hit.collider.gameObject.GetComponent<Enemy>();
                 if(_enemy != null)
