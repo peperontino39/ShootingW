@@ -188,6 +188,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -287,7 +301,7 @@ SpriteRenderer:
   m_Size: {x: 5.18, y: 3.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &388761151
 GameObject:
@@ -371,7 +385,7 @@ SpriteRenderer:
   m_Size: {x: 5.18, y: 3.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &875728041
 GameObject:
@@ -490,6 +504,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 929311405}
+  - component: {fileID: 929311407}
   - component: {fileID: 929311406}
   m_Layer: 0
   m_Name: manager
@@ -522,8 +537,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a13c5338ab67234fbe4031e768478fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 1880621046}
-  distance: 100
+--- !u!114 &929311407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929311404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54edb816945bb214ea2bc0075a7bd4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursor: {fileID: 2800000, guid: 07be93370b2297140a3803225b9b6a1c, type: 3}
+  effect: {fileID: 1289472830899294, guid: 224e6ead8dafadd4ab42c3b3eda6166e, type: 2}
 --- !u!1 &1477237427
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +632,7 @@ SpriteRenderer:
   m_Size: {x: 5.18, y: 3.88}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &1880621042
 GameObject:
@@ -778,12 +804,14 @@ VideoPlayer:
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 1
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
   m_Url: 
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
   m_Looping: 0
