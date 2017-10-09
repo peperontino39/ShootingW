@@ -283,7 +283,6 @@ GameObject:
   m_Component:
   - component: {fileID: 158437585}
   - component: {fileID: 158437586}
-  - component: {fileID: 158437584}
   m_Layer: 0
   m_Name: RayCast
   m_TagString: Untagged
@@ -291,17 +290,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &158437584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 158437583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a13c5338ab67234fbe4031e768478fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &158437585
 Transform:
   m_ObjectHideFlags: 0
@@ -826,8 +814,6 @@ GameObject:
   - component: {fileID: 822769255}
   - component: {fileID: 822769254}
   - component: {fileID: 822769253}
-  - component: {fileID: 822769258}
-  - component: {fileID: 822769259}
   - component: {fileID: 822769261}
   - component: {fileID: 822769260}
   m_Layer: 0
@@ -908,28 +894,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &822769258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 822769252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3d178c4162fae44bfb281c718b9c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &822769259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 822769252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5e268ec6f554c4cbf817dfbf40635e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &822769260
 MonoBehaviour:
   m_ObjectHideFlags: 0

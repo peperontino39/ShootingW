@@ -34,10 +34,10 @@ public class Spawn : MonoBehaviour
             }
         }
 
-        //for (int i = 0; i < spawnPoint.Length; i++)
-        //{
-        //    StartCoroutine(StartEnemySpawn(i));
-        //}
+        for (int i = 0; i < spawnPoint.Length; i++)
+        {
+            StartCoroutine(StartEnemySpawn(i));
+        }
 
     }
 
