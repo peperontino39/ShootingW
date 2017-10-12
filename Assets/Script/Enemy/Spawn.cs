@@ -34,13 +34,16 @@ public class Spawn : MonoBehaviour
             }
         }
 
+    }
+
+    //敵がリスポーンし始めます
+    public void StartEnemyGame()
+    {
         for (int i = 0; i < spawnPoint.Length; i++)
         {
             StartCoroutine(StartEnemySpawn(i));
         }
-
     }
-
 
     IEnumerator StartEnemySpawn(int index)
     {

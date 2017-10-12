@@ -4,6 +4,13 @@ using UnityEngine;
 using System;
 using System.IO;
 
+public enum SceneStane
+{
+    OPENING,    //ゲームが始まる前の状態
+    GAME,       //ゲーム中
+}
+
+
 public class DataManager : MonoBehaviour
 {
 
@@ -26,6 +33,7 @@ public class DataManager : MonoBehaviour
 
     public List<SpawnData> SpawnDatas = new List<SpawnData>();
     public List<EnemyState> EnemyDatas = new List<EnemyState>();
+    public SceneStane sceneState = SceneStane.OPENING;
 
 
     void Start()
