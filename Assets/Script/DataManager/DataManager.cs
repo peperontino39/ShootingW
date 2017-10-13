@@ -6,8 +6,13 @@ using System.IO;
 
 public enum SceneStane
 {
-    OPENING,    //ゲームが始まる前の状態
-    GAME,       //ゲーム中
+    OPENING,
+    MOVIE, 
+    TUTORIAL,
+    SPAWN,
+    STAGE_ONE,
+    STAGE_BOSS,
+    CLEAR
 }
 
 
