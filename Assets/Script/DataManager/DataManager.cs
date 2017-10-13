@@ -37,7 +37,7 @@ public class DataManager : MonoBehaviour
 
 
     public List<SpawnData> SpawnDatas = new List<SpawnData>();
-    public List<EnemyState> EnemyDatas = new List<EnemyState>();
+    public List<EnemyStates> EnemyDatas = new List<EnemyStates>();
     public SceneStane sceneState = SceneStane.OPENING;
 
 
@@ -79,7 +79,7 @@ public class DataManager : MonoBehaviour
             {
                 continue;
             }
-            EnemyState ed = new EnemyState();
+            EnemyStates ed = new EnemyStates();
             ed.DataInit(text);
             EnemyDatas.Add(ed);
         }

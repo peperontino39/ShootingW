@@ -66,38 +66,26 @@ public class Spawn : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //EnemySpawn(0);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            //EnemySpawn(1);
-        }
-        if (Input.GetMouseButtonDown(2))
-        {
-            //EnemySpawn(2);
-        }
+        
     }
 
     GameObject EnemySpawn(SpawnData spawn)
     {
         var ene = Instantiate(enemy);
         var enecom = ene.GetComponent<Enemy>();
-        enecom.state = DataManager.Instans.EnemyDatas[spawn.enemyType];
+        enecom.states = DataManager.Instans.EnemyDatas[spawn.enemyType];
         ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
 
         var targets = spawnPoint[spawn.spawnIndex].transform.GetChild(spawn.spawnDirection);
         float ti = 1f;
         StartCoroutine(Easing.Tween(ti, (t) =>
         {
-            if (enecom.state.hitPoint <= 0) return;
+            if (enecom.states.hitPoint <= 0) return;
         ene.transform.position = Vector3.Lerp(
             spawnPoint[spawn.spawnIndex].transform.position,
              targets.position,t);// + new Vector3(-1, 0, 0), t);
         }, () =>
         {
-            enecom.faceCange(Enemy.AnimationState.SMILE);
             
         }));
         return ene;
