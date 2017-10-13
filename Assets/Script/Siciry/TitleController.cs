@@ -21,33 +21,32 @@ public class TitleController : MonoBehaviour {
     Fade fade;
 
     // Use this for initialization
-    void Start()
+   IEnumerator Start()
     {
         dead.SetActive(false);
-        
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                break;
+            }
+            yield return null;
+        }
+        dead.SetActive(true);
+        face.SetActive(false);
+
+        yield return new WaitForSeconds(time_max);
+
+        Fade.Instance.startFadeOut(()=> { SceneManager.LoadScene("Stage1"); });
+
+
     }
+    
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDead = true;
-        }
-        if (isDead == true)
-        {
-            dead.SetActive(true);
-            face.SetActive(false);
-            time += Time.deltaTime;
-            
-        }
-        if (time >= time_max)
-        {
-            Fade.Instance.isFadeOut = true;
-        }
-        if (time >= 4.0f)
-        {
-            SceneManager.LoadScene("Stage1");
-        }
+      
+       
     }
 }
