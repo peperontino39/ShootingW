@@ -56,7 +56,6 @@ public class DataManager : MonoBehaviour
             SpawnDatas.Add(new SpawnData());
             SpawnDatas[SpawnDatas.Count-1].dataInit(text);
         }
-        Debug.Log("hoge");
     }
 
     public void LoadEnemyData()
@@ -76,7 +75,6 @@ public class DataManager : MonoBehaviour
             EnemyDatas.Add(ed);
         }
 
-        Debug.Log("hoge");
     }
 
 

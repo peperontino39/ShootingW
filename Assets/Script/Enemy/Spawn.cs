@@ -16,7 +16,6 @@ public class Spawn : MonoBehaviour
 
     void Start()
     {
-
         //スポーンの数だけListを用意
         var sds = DataManager.Instans.SpawnDatas;
         for (int i = 0; i < spawnPoint.Length; i++)
@@ -70,7 +69,11 @@ public class Spawn : MonoBehaviour
     GameObject EnemySpawn(SpawnData spawn)
     {
         var ene = Instantiate(enemy);
-        var enecom = ene.GetComponent<Enemy>();
+        EnemyBase enecom;
+
+        
+        enecom = ene.AddComponent<Enemy>();
+
         enecom.states = DataManager.Instans.EnemyDatas[spawn.enemyType];
         ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
         var targets = spawnPoint[spawn.spawnIndex].transform.GetChild(spawn.spawnDirection);
@@ -83,8 +86,7 @@ public class Spawn : MonoBehaviour
             spawnPoint[spawn.spawnIndex].transform.position,
              targets.position,t);
         }, () =>
-        {
-            
+        {   
         }));
         return ene;
     }

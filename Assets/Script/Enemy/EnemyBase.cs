@@ -15,7 +15,6 @@ public struct EnemyStates
     public float moveTime;                 //移動時間
     public int ReactionID;                 //リアクションID
   
-
     public void DataInit(string _d)
     {
         string[] d = _d.Split(',');
@@ -111,17 +110,16 @@ public class EnemyBase : MonoBehaviour
     //歩き
     virtual public IEnumerator Walk()
     {
-
         animationState = AnimationState.WALK;
         float time = 0.2f;
-
-
         for (int i = 0; true; i++)
         {
+
             sprite.sprite = walkSprites[i % walkSprites.Length];
             yield return new WaitForSeconds(time);
         }
-        yield return null;
+
+
     }
 
 
