@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+
 public struct EnemyStates
 {
     public int ID;                         //ID
@@ -12,6 +14,8 @@ public struct EnemyStates
     public float deylayTime;               //何秒後に打つか
     public float moveTime;                 //移動時間
     public int ReactionID;                 //リアクションID
+  
+
     public void DataInit(string _d)
     {
         string[] d = _d.Split(',');
@@ -24,6 +28,8 @@ public struct EnemyStates
         ReactionID = Int32.Parse(d[6]);
     }
 }
+
+
 
 public enum AnimationState
 {
@@ -41,31 +47,30 @@ public class EnemyBase : MonoBehaviour
     AnimationState animationState;
     SpriteRenderer sprite;
 
-    Sprite[] walkSprites;
-    Sprite[] waitSprites;
-    Sprite[] atackSprites;
-    Sprite[] damageSprites;
+    public Sprite[] walkSprites;
+    public Sprite[] waitSprites;
+    public Sprite[] atackSprites;
+    public Sprite[] damageSprites;
 
-    [SerializeField]
-    Player player;
+
 
     public EnemyStates states;
     public bool isLive = true;      //生きてるかどうか
 
 
-    public void DataInit(string _d)
+    virtual public void DataInit()
     {
-        states.DataInit(_d);
+        //states.DataInit();
         SpriteInit();
     }
 
     //エネミーにダメージを与える関数
-    public void AddDamage(int _damage)
+    virtual public void AddDamage(int _damage)
     {
         states.hitPoint -= _damage;
         if (states.hitPoint <= 0)
         {
-            StartCoroutine(Suffring(() =>
+            StartCoroutine(Die(() =>
             {
                 isLive = false;
                 Destroy(gameObject);
@@ -73,20 +78,12 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-
-    //歩く
-    virtual public IEnumerator Waik()
-    {
-        yield return null;
-    }
-
-
     //ダメージ食らったとき
     virtual public IEnumerator Damage(Action callback = null)
     {
+
         yield return null;
     }
-
 
     //死ぬ
     virtual public IEnumerator Die(Action callback = null)
@@ -103,24 +100,31 @@ public class EnemyBase : MonoBehaviour
             callback();
         }
     }
+
     //攻撃モーション
     virtual public IEnumerator Atack()
     {
         sprite.sprite = atackSprites[0];
         yield return null;
     }
+
     //歩き
     virtual public IEnumerator Walk()
     {
+
         animationState = AnimationState.WALK;
         float time = 0.2f;
+
 
         for (int i = 0; true; i++)
         {
             sprite.sprite = walkSprites[i % walkSprites.Length];
             yield return new WaitForSeconds(time);
         }
+        yield return null;
     }
+
+
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -133,30 +137,23 @@ public class EnemyBase : MonoBehaviour
         waitSprites = Resources.LoadAll<Sprite>("NotShare/素材/gh/" + states.nameing + "/Wait");
         atackSprites = Resources.LoadAll<Sprite>("NotShare/素材/gh/" + states.nameing + "/Atack");
         damageSprites = Resources.LoadAll<Sprite>("NotShare/素材/gh/" + states.nameing + "/Damage");
+
     }
-    
+
 
     public IEnumerator Motion(AnimationState ani, Action callback = null)
     {
-        animationState = ani;
-        sprite.sprite = waitSprites[(int)ani];
-        yield return new WaitForSeconds(1.0f);
-        if (callback != null)
-        {
-            callback();
-        }
-        StartCoroutine(Walk());
+        //animationState = ani;
+        //sprite.sprite = waitSprites[(int)ani];
+        //yield return new WaitForSeconds(1.0f);
+        //if (callback != null)
+        //{
+        //    callback();
+        //}
+        //StartCoroutine(Walk());
         //sprite.sprite = sprites[(int)AnimationState.NORMAL];
+        yield return null;
     }
-
-    IEnumerator Suffring(Action callback = null)
-    {
-       yield return null;
-    }
-
-
-
-
 
 
 }

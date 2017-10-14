@@ -18,14 +18,7 @@ public class Player : MonoBehaviour
         HP = MaxHp;
         bar.maxValue = MaxHp;
     }
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Damage(1);
-        //}
-
-    }
+   
 
     public void Damage(int _damage)
     {

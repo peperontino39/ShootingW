@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
         {
             if (instans == null)
             {
+
                 var obj = Instantiate(new GameObject("AudioManager"));
                 var _instans = obj.AddComponent<AudioManager>();
                 instans = _instans;
@@ -22,6 +23,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         instans = this;
+        Load("Audio/SE");
     }
     //[SerializeField]
     //AudioSource seAudioSource;
@@ -69,12 +71,5 @@ public class AudioManager : MonoBehaviour
             seAudioClips.Add(a.name, a);
         }
     }
-
-    void Start()
-    {
-        var getIns = Instans;
-        Load("Audio/SE");
-    }
-
-
+    
 }
