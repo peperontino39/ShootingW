@@ -75,6 +75,7 @@ public class Spawn : MonoBehaviour
         enecom = ene.AddComponent<Enemy>();
 
         enecom.states = DataManager.Instans.EnemyDatas[spawn.enemyType];
+        enecom.DataInit();
         ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
         var targets = spawnPoint[spawn.spawnIndex].transform.GetChild(spawn.spawnDirection);
         float ti = 1f;
