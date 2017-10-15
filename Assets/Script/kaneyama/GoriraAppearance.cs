@@ -30,6 +30,11 @@ public class GoriraAppearance : MonoBehaviour
     [SerializeField]
     SpriteRenderer MainRen;
 
+	[SerializeField]
+	GameObject tumeato;
+
+	public BossManager bossManager;
+
     void Start()
     {
         AppearanceStart();
@@ -104,7 +109,9 @@ public class GoriraAppearance : MonoBehaviour
         concentrationLine.SetActive(true);
         yield return new WaitForSeconds(3);
 
-        yield return
+		Instantiate(tumeato);
+
+		yield return
        StartCoroutine(Easing.Tween(0.5f, (t) => {
             LeftRen.transform.localPosition = Vector3.Lerp(new Vector3(3.75f, 2.75f, 0),
                 new Vector3(-4.08f, -2.21f, 0), Easing.InOutQuart(t));
@@ -130,6 +137,7 @@ public class GoriraAppearance : MonoBehaviour
         LeftRen.transform.localPosition = new Vector3(3, -1.4f, 0);
 
         yield return new WaitForSeconds(1);
+
         yield return StartCoroutine(
         Easing.Tween(2, (t) =>
         {
@@ -139,6 +147,7 @@ public class GoriraAppearance : MonoBehaviour
             MainRen.gameObject.transform.position.z);
         }));
 
+		bossManager.isActionEnd = true;
 
         Destroy(gameObject);
     }
