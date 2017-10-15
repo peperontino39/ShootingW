@@ -1,0 +1,6 @@
+//アニメーションID,テクスチャのpath,アニメーション時間,
+0,Textures\Sample\stay_left,0.0
+1,Textures\Sample\stay_right,0.0
+2,Textures\Sample\rolling,0.0
+3,Textures\Sample\unko_blow_left1,1.0,Textures\Sample\unko_blow_left2,1.0
+4,Textures\Sample\unko_blow_right1,1.0,Textures\Sample\unko_blow_right2,1.0
