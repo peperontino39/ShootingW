@@ -16,12 +16,14 @@ public class Spawn : MonoBehaviour
 
     void Start()
     {
+        //スポーンの数だけListを用意
         var sds = DataManager.Instans.SpawnDatas;
         for (int i = 0; i < spawnPoint.Length; i++)
         {
             spawnDatas.Add(new List<SpawnData>());
         }
 
+        //スポーンごとにスポーンデータを用意
         for (int i = 0; i < sds.Count; i++)
         {
             for (int j = 0; j < spawnPoint.Length; j++)
@@ -34,14 +36,19 @@ public class Spawn : MonoBehaviour
             }
         }
 
+    }
+
+    //全ての敵がリスポーンし始めます
+    //ゲーム開始時にコールします
+    public void StartEnemyGame()
+    {
         for (int i = 0; i < spawnPoint.Length; i++)
         {
             StartCoroutine(StartEnemySpawn(i));
         }
-
     }
 
-
+    //そのスポーン位置から出撃し始めます
     IEnumerator StartEnemySpawn(int index)
     {
         var sdi = spawnDatas[index];
@@ -58,45 +65,23 @@ public class Spawn : MonoBehaviour
             }
         }
     }
-
-
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //EnemySpawn(0);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            //EnemySpawn(1);
-        }
-        if (Input.GetMouseButtonDown(2))
-        {
-            //EnemySpawn(2);
-        }
-    }
-
+    
+    //スポーンデータを使って敵を出現させます
     GameObject EnemySpawn(SpawnData spawn)
     {
         var ene = Instantiate(enemy);
-        var enecom = ene.GetComponent<Enemy>();
-        enecom.state = DataManager.Instans.EnemyDatas[spawn.enemyType];
-        ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
+        EnemyBase enecom;
 
+        
+        enecom = ene.AddComponent<Enemy>();
+
+        enecom.states = DataManager.Instans.EnemyDatas[spawn.enemyType];
+        enecom.DataInit();
+        //ene.transform.position = spawnPoint[spawn.spawnIndex].transform.position;
         var targets = spawnPoint[spawn.spawnIndex].transform.GetChild(spawn.spawnDirection);
-        float ti = 1f;
-        StartCoroutine(Easing.Tween(ti, (t) =>
-        {
-            if (enecom.state.hitPoint <= 0) return;
-        ene.transform.position = Vector3.Lerp(
-            spawnPoint[spawn.spawnIndex].transform.position,
-             targets.position,t);// + new Vector3(-1, 0, 0), t);
-        }, () =>
-        {
-            enecom.faceCange(Enemy.AnimationState.SMILE);
-            
-        }));
+        
+        enecom.SpawnMove(spawnPoint[spawn.spawnIndex], targets.gameObject);
+
         return ene;
     }
 

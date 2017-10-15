@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SceneController : MonoBehaviour {
 
+    
 
     [SerializeField]
     GameObject hamada_camera;
@@ -23,7 +25,8 @@ public class SceneController : MonoBehaviour {
     GameObject tutorialCanvas;
     [SerializeField]
     GameObject startCanvas;
-
+    //[SerializeField]
+    //float 
 
     float time;
     [SerializeField]
@@ -31,55 +34,114 @@ public class SceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        tutorialCanvas.SetActive(false);
-        startCanvas.SetActive(false);
-        Fade.Instance.isFadeIn = true;
-        Fade.Instance.isFadeOut = false;
+        //tutorialCanvas.SetActive(false);
+        //startCanvas.SetActive(false);
+        Fade.Instance.startFadeIn(()=> {
+            StartCoroutine(tutorialSTAGE());
+        });
+      
     }
-	
+
+    [SerializeField]
+    Spawn spawn;
+
 	// Update is called once per frame
 	void Update () {
-        
-        if (hamada_camera.transform.localPosition.z < hamadaStopPos)
-        {
-            hamada_camera.transform.localPosition += transform.forward * hamada_speed * Time.deltaTime;
-            cameraWork();
-        }
-        else
-        {
-            hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x,0.3f, hamada_camera.transform.localPosition.z);
-        }
-       
 
-        if (hamada_camera.transform.localPosition.z >= hamadaStopPos)
-        {
-            //Debug.Log("とまった");
-            tutorialCanvas.SetActive(true);
-            if (tutorialCanvas.transform.localPosition.x < tutorialStopPos) {
-                tutorialCanvas.transform.localPosition += transform.right * tutorial_speed * Time.deltaTime;
-            }
-            time += Time.deltaTime;
-        }
-        if (time >= time_max )
-        {
-            if (tutorialCanvas.transform.localPosition.x < tutorialOutPos)
-            {
-                tutorialCanvas.transform.localPosition += transform.right * (tutorial_speed * 4) * Time.deltaTime;
-            }
-            if (tutorialCanvas.transform.localPosition.x >= tutorialOutPos)
-            {
-                startCanvas.SetActive(true);
-            }
-        }
-       
-
+     
     }
 
-    void cameraWork()
+   
+
+    public AnimationCurve cameraWork;
+
+
+    IEnumerator tutorialSTAGE(Action callback = null)
     {
-        hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
-   , (Mathf.Cos((Time.frameCount * 1.5f) * 0.1f) + 1) * 0.5f, hamada_camera.transform.localPosition.z);
-       
+
+
+
+        yield return 
+
+        StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+            hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+    , cameraWork.Evaluate(t), hamada_camera.transform.localPosition.z);
+
+        }));
+
+        yield return
+
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+           hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+   , cameraWork.Evaluate(1-t), hamada_camera.transform.localPosition.z);
+
+       }));
+
+        yield return
+
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+           hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+   , cameraWork.Evaluate(t), hamada_camera.transform.localPosition.z);
+
+       }));
+
+        yield return
+
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+           hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+   , cameraWork.Evaluate(1 - t), hamada_camera.transform.localPosition.z);
+
+       }));
+
+        yield return
+
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+           hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+   , cameraWork.Evaluate(t), hamada_camera.transform.localPosition.z);
+
+       }));
+
+        yield return
+
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
+
+           hamada_camera.transform.localPosition = new Vector3(hamada_camera.transform.localPosition.x
+   , cameraWork.Evaluate(1 - t), hamada_camera.transform.localPosition.z);
+
+       }));
+
+        yield return new WaitForSeconds(time_max/2);
+
+        var vaf = tutorialCanvas.transform.localPosition.x;
+
+        yield return StartCoroutine(Easing.Tween(1.0f, (t) =>
+        {
+            var x = Mathf.Lerp(vaf, 0, t);
+            tutorialCanvas.transform.localPosition = new Vector3(x, 0, 0);
+        }));
+
+        yield return new WaitForSeconds(time_max/2);
+
+        yield return StartCoroutine(Easing.Tween(1.0f, (t) =>
+        {
+            var x = Mathf.Lerp(0, -vaf, t);
+            tutorialCanvas.transform.localPosition = new Vector3(x, 0, 0);
+        }));
+
+        startCanvas.SetActive(true);
+
+        yield return new WaitForSeconds(time_max);
+
+        startCanvas.SetActive(false);
+
+        spawn.StartEnemyGame();
+
+      
 
     }
 

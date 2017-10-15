@@ -4,9 +4,9 @@ using UnityEngine;
 using System;
 using System.IO;
 
+
 public class DataManager : MonoBehaviour
 {
-
     static private DataManager instans;
     static public DataManager Instans
     {
@@ -23,9 +23,10 @@ public class DataManager : MonoBehaviour
     }
 
 
-
+    [SerializeField]
+    public Player player;
     public List<SpawnData> SpawnDatas = new List<SpawnData>();
-    public List<EnemyState> EnemyDatas = new List<EnemyState>();
+    public List<EnemyStates> EnemyDatas = new List<EnemyStates>();
 
 
     void Start()
@@ -36,11 +37,12 @@ public class DataManager : MonoBehaviour
         instans = this;
         LoadStage("Stage1");
         LoadEnemyData();
+        DontDestroyOnLoad(gameObject);
+
     }
 
     void LoadStage(string fileName)
     {
-
         var sr = new StreamReader(Application.streamingAssetsPath + "/Data/Stage/" + fileName + ".csv");
         string text = sr.ReadLine();
         while ((text = sr.ReadLine()) != null)
@@ -49,14 +51,16 @@ public class DataManager : MonoBehaviour
             {
                 continue;
             }
-            var sd = new SpawnData();
-            sd.dataInit(text);
-            SpawnDatas.Add(sd);
+            //var sd = new SpawnData();
+            //sd.dataInit(text);
+            SpawnDatas.Add(new SpawnData());
+            SpawnDatas[SpawnDatas.Count-1].dataInit(text);
         }
     }
 
     public void LoadEnemyData()
     {
+        EnemyDatas.Clear();
         var sr = new StreamReader(
             Application.streamingAssetsPath + "/Data/EnemyStatus.csv");
         string text = sr.ReadLine();
@@ -66,10 +70,11 @@ public class DataManager : MonoBehaviour
             {
                 continue;
             }
-            EnemyState ed = new EnemyState();
+            EnemyStates ed = new EnemyStates();
             ed.DataInit(text);
             EnemyDatas.Add(ed);
         }
+
     }
 
 
