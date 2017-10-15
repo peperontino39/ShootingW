@@ -19,7 +19,7 @@ public class ConcentrationLine : MonoBehaviour
     void Update()
     {
 
-        var s = Mathf.Sin(deltaTime * 10);
+        var s = Mathf.Sin(deltaTime * 20);
         transform.localScale = defaultSize + new Vector3(s, s, 0);
         deltaTime += Time.deltaTime;
     }

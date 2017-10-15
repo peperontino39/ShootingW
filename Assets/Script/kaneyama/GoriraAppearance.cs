@@ -85,7 +85,7 @@ public class GoriraAppearance : MonoBehaviour
         }));
         yield return null;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         AtackStart();
     }
 
@@ -97,19 +97,53 @@ public class GoriraAppearance : MonoBehaviour
     IEnumerator Atack()
     {
         MainRen.sprite = gorirakougeki;
-        LeftRen.transform.localPosition = new Vector3(3.75f,2.75f,0);
-        LeftRen.transform.localRotation = Quaternion.Euler(0,0,0);
+        LeftRen.transform.localPosition = new Vector3(3.75f, 2.75f, 0);
+        LeftRen.transform.localRotation = Quaternion.Euler(0, 0, 0);
         LeftRen.sprite = teHiraki;
         RightRen.gameObject.SetActive(false);
         concentrationLine.SetActive(true);
         yield return new WaitForSeconds(3);
 
-        StartCoroutine(Easing.Tween(0.5f, (t) => {
+        yield return
+       StartCoroutine(Easing.Tween(0.5f, (t) => {
             LeftRen.transform.localPosition = Vector3.Lerp(new Vector3(3.75f, 2.75f, 0),
                 new Vector3(-4.08f, -2.21f, 0), Easing.InOutQuart(t));
         }));
 
-
+        StartCoroutine(Return());
     }
+
+
+
+    IEnumerator Return()
+    {
+
+        MainRen.sprite = NormalGorira;
+        RightRen.gameObject.SetActive(true);
+        concentrationLine.SetActive(false);
+        RightRen.sprite = tukamiSpr;
+        RightRen.transform.localRotation = Quaternion.Euler(0, 0, -33);
+        RightRen.transform.localPosition = new Vector3(-3, -1.4f, 0);
+
+        LeftRen.sprite = tukamiSpr;
+        LeftRen.transform.localRotation = Quaternion.Euler(0, 0, 33);
+        LeftRen.transform.localPosition = new Vector3(3, -1.4f, 0);
+
+        yield return new WaitForSeconds(1);
+        yield return StartCoroutine(
+        Easing.Tween(2, (t) =>
+        {
+            var y = Mathf.Lerp(0.57f, -3.7f, t);
+            MainRen.gameObject.transform.position
+            = new Vector3(MainRen.gameObject.transform.position.x, y,
+            MainRen.gameObject.transform.position.z);
+        }));
+
+
+        Destroy(gameObject);
+    }
+
+
+
 
 }
