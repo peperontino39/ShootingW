@@ -14,7 +14,7 @@ public class ThrowUnko : MonoBehaviour {
 
     void Start()
     {
-        nawPosition = GameObject.Find("player").transform.position;
+        nawPosition = GameObject.Find("Boss").transform.position;
         target = GameObject.Find("Target").transform;
         throwStart();
 
