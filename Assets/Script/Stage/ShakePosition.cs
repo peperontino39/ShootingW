@@ -12,7 +12,6 @@ public class ShakePosition : MonoBehaviour
     void Start()
     {
         pos = transform.position;
-        
     }
   
     public void Shake()
