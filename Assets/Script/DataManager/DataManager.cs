@@ -24,7 +24,7 @@ public class DataManager : MonoBehaviour
 
 
     [SerializeField]
-    Player player;
+    public Player player;
     public List<SpawnData> SpawnDatas = new List<SpawnData>();
     public List<EnemyStates> EnemyDatas = new List<EnemyStates>();
 

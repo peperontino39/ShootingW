@@ -14,7 +14,7 @@ public struct EnemyStates
     public float deylayTime;               //何秒後に打つか
     public float moveTime;                 //移動時間
     public int ReactionID;                 //リアクションID
-  
+
     public void DataInit(string _d)
     {
         string[] d = _d.Split(',');
@@ -103,10 +103,28 @@ public class EnemyBase : MonoBehaviour
     //攻撃モーション
     virtual public IEnumerator Atack()
     {
+        if (animationState != AnimationState.ANGER)
+            yield break;
+
+        animationState = AnimationState.ANGER;
         sprite.sprite = atackSprites[0];
-        yield return null;
+        DataManager.Instans.player.Damage(1);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Wait());
     }
 
+    //待機Motion
+    virtual public IEnumerator Wait()
+    {
+        if (animationState != AnimationState.NORMAL)
+            yield break;
+
+        animationState = AnimationState.NORMAL;
+        sprite.sprite = waitSprites[0];
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Atack());
+
+    }
     //歩き
     virtual public IEnumerator Walk()
     {
@@ -115,10 +133,31 @@ public class EnemyBase : MonoBehaviour
         for (int i = 0; true; i++)
         {
 
+            if (animationState != AnimationState.WALK)
+                yield break;
             sprite.sprite = walkSprites[i % walkSprites.Length];
             yield return new WaitForSeconds(time);
         }
 
+    }
+
+    //スポーンされたっときの挙動
+    virtual public void SpawnMove(
+        GameObject _ponPos,
+        GameObject _tergetPos)
+    {
+
+        float ti = 1f;
+        StartCoroutine(Easing.Tween(ti, (t) =>
+        {
+            if (states.hitPoint <= 0) return;
+            transform.position = Vector3.Lerp(
+                _ponPos.transform.position,
+                 _tergetPos.transform.position, t);
+        }, () =>
+        {
+            StartCoroutine(Wait());
+        }));
 
     }
 
@@ -139,19 +178,6 @@ public class EnemyBase : MonoBehaviour
     }
 
 
-    public IEnumerator Motion(AnimationState ani, Action callback = null)
-    {
-        //animationState = ani;
-        //sprite.sprite = waitSprites[(int)ani];
-        //yield return new WaitForSeconds(1.0f);
-        //if (callback != null)
-        //{
-        //    callback();
-        //}
-        //StartCoroutine(Walk());
-        //sprite.sprite = sprites[(int)AnimationState.NORMAL];
-        yield return null;
-    }
 
 
 }

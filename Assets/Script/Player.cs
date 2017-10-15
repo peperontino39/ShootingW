@@ -12,13 +12,19 @@ public class Player : MonoBehaviour
     Slider bar;
     [SerializeField]
     ShakePosition shakepos;
+    int killEnemyNum; //倒した数
+
+    public void addKillEnemyNum() {
+        killEnemyNum++;
+    }
+
 
     void Start()
     {
         HP = MaxHp;
         bar.maxValue = MaxHp;
+        killEnemyNum = 0;
     }
-   
 
     public void Damage(int _damage)
     {

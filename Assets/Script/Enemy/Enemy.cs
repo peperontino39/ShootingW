@@ -8,5 +8,12 @@ using System;
 
 public class Enemy : EnemyBase
 {
+
+    //public override IEnumerator Walk()
+    //{
+    //    yield return null;
+    //}
+
     
+
 }
