@@ -31,6 +31,7 @@ public class BossManager : MonoBehaviour
 	{
 		public Vector3 pos; //位置
 		public float scale; //拡大サイズ
+		public int direction;//画像の向き
 	}
 
 	public struct TakeTime
@@ -86,7 +87,7 @@ public class BossManager : MonoBehaviour
 	private bool isUnko = false;
 	public GameObject unko;
 	public GameObject menoaeGorira;
-	public const int maxTumekougeki = 2;
+	public const int maxTumekougeki = 3;
 	public int tumeKougekiNum = 0;
 
 	void Start()
@@ -119,6 +120,7 @@ public class BossManager : MonoBehaviour
 					float.Parse(data[1]),
 					float.Parse(data[2]));
 				p.scale = float.Parse(data[3]);
+				p.direction = int.Parse(data[4]);
 				points.Add(p);
 			}
 		}
@@ -238,15 +240,15 @@ public class BossManager : MonoBehaviour
 				if (phase == Phase.LATTER_HALF)
 					moveNum++;
 
-				if (nowPointIndex == 4)
+				if (nowPointIndex == 3)
 				{
 					status = Status.CLIMB_SCRATCH;
 					hitWhileStagger = 0;
 					break;
 				}
 
-				int randNum = Random.Range(0, 2);
-				if (randNum == 0)
+				int direction = points[nowPointIndex].direction;
+				if (direction == -1)
 				{
 					if (moveNum == maxUnko)
 					{
@@ -258,7 +260,7 @@ public class BossManager : MonoBehaviour
 						status = Status.STAY_LEFT;
 					}
 				}
-				else if (randNum == 1)
+				else if (direction == 1)
 				{
 					if (moveNum == maxUnko)
 					{
@@ -291,7 +293,7 @@ public class BossManager : MonoBehaviour
 	public void DecideModePoint()
 	{
 		isActionEnd = false;
-		if (nowPointIndex != 4)
+		if (nowPointIndex != 3)
 			spriteR.sprite = anims[status].sprites[0];
 
 		switch (status)
@@ -314,7 +316,7 @@ public class BossManager : MonoBehaviour
 
 				List<Root> select = (phase == Phase.FIRST_HALF) ? roots : laterRoots;
 
-				if(nowPointIndex == 4)
+				if(nowPointIndex == 3)
 				{
 					nextPointIndex = 0;
 					Vector3 nowPos = points[nowPointIndex].pos;
@@ -325,7 +327,7 @@ public class BossManager : MonoBehaviour
 					//移動イージング
 					var r = 0;
 					bool ttakai = nowPos.y < nextPos.y;
-					StartCoroutine(Easing.Tween(4, (t) =>
+					StartCoroutine(Easing.Tween(3, (t) =>
 					{
 						var x = Mathf.Lerp(nowPos.x, nextPos.x, t);
 						var y = ttakai ? nowPos.y + (-nowPos.y + nextPos.y) * curve.Evaluate(t) :
@@ -338,6 +340,7 @@ public class BossManager : MonoBehaviour
 						if (t >= 1.0f)
 						{
 							isActionEnd = true;
+							transform.localRotation = Quaternion.Euler(0, 0, 0);
 						}
 					}));
 
@@ -375,6 +378,7 @@ public class BossManager : MonoBehaviour
 						if (t >= 1.0f)
 						{
 							isActionEnd = true;
+							transform.localRotation = Quaternion.Euler(0, 0, 0);
 						}
 					}));
 
