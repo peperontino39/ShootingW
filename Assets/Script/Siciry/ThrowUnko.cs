@@ -6,31 +6,39 @@ using System;
 public class ThrowUnko : MonoBehaviour {
 
 
-    public Transform target;
-    float time = 3;
+    public Vector3 target;
+    float time = 1;
     [SerializeField]
     AnimationCurve curve;
     float rotateDirection = -1; //-1時計回り1反時計回り
     public Action callback = null;
     void Start()
     {
-        target = GameObject.Find("Target").transform;
+        target = GameObject.Find("Target").transform.position ;
         throwStart();
     }
 
     void throwStart()
     {
         var r = 0;
-        bool ttakai = transform.position.y < target.position.y;
+        bool ttakai = transform.position.y < target.y;
         StartCoroutine(Easing.Tween(time, (t) =>
         {
-            var x = Mathf.Lerp(transform.position.x, target.position.x, t);
-            var y = ttakai ? transform.position.y + (-transform.position.y + target.position.y) * curve.Evaluate(t) :
-            target.position.y + (-target.position.y + transform.position.y) * curve.Evaluate(1 - t);
+            var x = Mathf.Lerp(transform.position.x, target.x, t);
+            //var y = ttakai ? transform.position.y + (-transform.position.y + target.y) * curve.Evaluate(t) :
+            //target.y + (-target.y + transform.position.y) * curve.Evaluate(1 - t);
+            //transform.localRotation = Quaternion.Euler(0, 0, (r += 10) * rotateDirection);
+            var y = Mathf.Lerp(transform.position.y, target.y, t);
+            transform.position = new Vector3(x, y, Mathf.Lerp(transform.position.z, target.z, t));
+            
+        }, ()=> {
 
-            transform.localPosition = new Vector3(x, y, Mathf.Lerp(transform.position.z, target.position.z, t));
-            transform.localRotation = Quaternion.Euler(0, 0, (r += 10) * rotateDirection);
-        }, callback));
+            //if (callback != null)
+            //{
+            //    callback();
+            //}
+            Destroy(this.gameObject);
+        }));
       
     }
 }
