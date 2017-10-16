@@ -20,8 +20,8 @@ public class Test : MonoBehaviour {
 
         yield return new WaitForSeconds(1);
         GetComponent<SpriteRenderer>().sprite = b;
-
-        Instantiate(pre, transform.GetChild(0));
+        
+        Instantiate(pre).transform.position = transform.GetChild(0).position;
 
     }
 	

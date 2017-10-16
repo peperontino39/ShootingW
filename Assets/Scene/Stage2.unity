@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 30276433}
   - component: {fileID: 30276432}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: Sphere2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ Transform:
   m_Children:
   - {fileID: 938161025}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &102440274
 GameObject:
@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &102440275
 Transform:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 362022173}
   - component: {fileID: 362022172}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Sphere1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,7 +558,7 @@ Prefab:
     - target: {fileID: 224334039627101710, guid: 10433e916500e3342a26946e5b1817fd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224334039627101710, guid: 10433e916500e3342a26946e5b1817fd,
         type: 2}
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 594641074}
   - component: {fileID: 594641073}
   m_Layer: 0
-  m_Name: Sphere (4)
+  m_Name: Sphere1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,7 +724,7 @@ Transform:
   m_Children:
   - {fileID: 1093677231}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &610009199
 GameObject:
@@ -742,7 +742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &610009200
 Transform:
   m_ObjectHideFlags: 0
@@ -770,7 +770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   a: {fileID: 21300000, guid: 7ed6e619ea1d6204392b0c086b922111, type: 3}
   b: {fileID: 21300000, guid: f0c2c2bca20e4d949996ef5d5d9004cb, type: 3}
-  pre: {fileID: 0}
+  pre: {fileID: 1691462643807996, guid: 740b0bf7dbc417245881488ce0320f2a, type: 2}
 --- !u!212 &610009202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -803,7 +803,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 7ed6e619ea1d6204392b0c086b922111, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f2b0847a048fdf479f3f4dc9f108741, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -973,7 +973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &807330405
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,42 +1037,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 807330404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41b7f1512529ff4883c5d22a1b9b569, type: 3}
+  m_Script: {fileID: 11500000, guid: 3164a69bbcdd04642ad89da2f0ad1735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nawPosition: {fileID: 2141943722}
-  terget: {fileID: 362022175}
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 6.0388184
-      outSlope: 6.0388184
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.7432753
-      value: 1.7567189
-      inSlope: -0.29205263
-      outSlope: -0.29205263
-      tangentMode: 34
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: -2.9475887
-      outSlope: -2.9475887
-      tangentMode: 34
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  rotateDirecction: 1
-  a: {fileID: 21300000, guid: 9f2b0847a048fdf479f3f4dc9f108741, type: 3}
-  b: {fileID: 21300000, guid: 881a448d97472eb42b8ff93df7a142af, type: 3}
-  c: {fileID: 21300000, guid: 9f2b0847a048fdf479f3f4dc9f108741, type: 3}
-  sa: 1
-  sb: 1
-  sc: 1.2
+  a: {fileID: 21300000, guid: b22af6acd841b73418b0bc24b4d0aea1, type: 3}
+  b: {fileID: 21300000, guid: 6345012c7f22da94bb3f4476a56d050f, type: 3}
+  c: {fileID: 0}
 --- !u!1 &829775072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,7 +1344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1093677231
 Transform:
   m_ObjectHideFlags: 0
@@ -1457,7 +1427,7 @@ GameObject:
   - component: {fileID: 1095905844}
   - component: {fileID: 1095905843}
   m_Layer: 0
-  m_Name: Sphere (2)
+  m_Name: Sphere3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1527,7 +1497,7 @@ Transform:
   - {fileID: 1316760172}
   - {fileID: 610009200}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1145842482
 GameObject:
@@ -1638,42 +1608,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1316760171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41b7f1512529ff4883c5d22a1b9b569, type: 3}
+  m_Script: {fileID: 11500000, guid: 04e901fc98cf2ed43acd83f0dcff0018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nawPosition: {fileID: 594641076}
-  terget: {fileID: 594641076}
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 6.0388184
-      outSlope: 6.0388184
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.7432753
-      value: 1.7567189
-      inSlope: -0.29205263
-      outSlope: -0.29205263
-      tangentMode: 34
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: -2.9475887
-      outSlope: -2.9475887
-      tangentMode: 34
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  rotateDirecction: -1
-  a: {fileID: 21300000, guid: 9f2b0847a048fdf479f3f4dc9f108741, type: 3}
-  b: {fileID: 21300000, guid: 881a448d97472eb42b8ff93df7a142af, type: 3}
-  c: {fileID: 21300000, guid: 1d9d91a12d6742d4a8ae61670a175f2a, type: 3}
-  sa: 1.2
-  sb: 1
-  sc: 1.2
+  a: {fileID: 21300000, guid: 8eae4d755aed8194ca608bad5d109b20, type: 3}
+  b: {fileID: 21300000, guid: 3710dd4c06b186143b5264f2a83e37d9, type: 3}
+  c: {fileID: 21300000, guid: 9f2b0847a048fdf479f3f4dc9f108741, type: 3}
 --- !u!212 &1316760174
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1938,7 +1878,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811298572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.36, y: 6.6, z: 0}
+  m_LocalPosition: {x: 5.65, y: 7.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 610009200}
@@ -1966,7 +1906,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2019643287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -8.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2012,7 +1952,7 @@ GameObject:
   - component: {fileID: 2141943724}
   - component: {fileID: 2141943723}
   m_Layer: 0
-  m_Name: Sphere (3)
+  m_Name: Sphere4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2030,7 +1970,7 @@ Transform:
   m_Children:
   - {fileID: 829775075}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2141943723
 MeshRenderer:

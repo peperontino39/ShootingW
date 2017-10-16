@@ -21,15 +21,11 @@ public class ThrowUnko : MonoBehaviour {
     void throwStart()
     {
         var r = 0;
-        bool ttakai = transform.position.y < target.y;
+        var pos = transform.position;
         StartCoroutine(Easing.Tween(time, (t) =>
         {
-            var x = Mathf.Lerp(transform.position.x, target.x, t);
-            //var y = ttakai ? transform.position.y + (-transform.position.y + target.y) * curve.Evaluate(t) :
-            //target.y + (-target.y + transform.position.y) * curve.Evaluate(1 - t);
-            //transform.localRotation = Quaternion.Euler(0, 0, (r += 10) * rotateDirection);
-            var y = Mathf.Lerp(transform.position.y, target.y, t);
-            transform.position = new Vector3(x, y, Mathf.Lerp(transform.position.z, target.z, t));
+          
+            transform.position = Vector3.Lerp(pos, target,t);
             
         }, ()=> {
 
@@ -37,7 +33,7 @@ public class ThrowUnko : MonoBehaviour {
             //{
             //    callback();
             //}
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }));
       
     }

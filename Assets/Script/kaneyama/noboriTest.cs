@@ -30,12 +30,10 @@ public class noboriTest : MonoBehaviour
 
         while (bi)
         {
-
             GetComponent<SpriteRenderer>().sprite = a;
             yield return new WaitForSeconds(0.3f);
             GetComponent<SpriteRenderer>().sprite = b;
             yield return new WaitForSeconds(0.3f);
-
         }
         GetComponent<SpriteRenderer>().sprite = c;
         transform.localScale = new Vector3(1.2f, 1.2f, 0);
