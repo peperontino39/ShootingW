@@ -11,15 +11,38 @@ public class GoriraJump : MonoBehaviour
     float time = 3;
     [SerializeField]
     AnimationCurve curve;
-    float rotateDirecction  = -1; //-1時計回り1反時計回り
+    public float rotateDirecction  = -1; //-1時計回り1反時計回り
 
-    void Start()
+    [SerializeField]
+    Sprite a;
+    [SerializeField]
+    Sprite b;
+    [SerializeField]
+    Sprite c;
+
+    public float sa;
+    public float sb;
+    public float sc;
+
+    IEnumerator Start()
     {
-        jumpStart();
+
+        GetComponent<SpriteRenderer>().sprite = a;
+        transform.localScale = new Vector3(sa, sa, 0);
+        transform.localPosition = nawPosition.position;
+        yield return new WaitForSeconds(1f);
+        transform.localScale = new Vector3(sb, sb, 0);
+        GetComponent<SpriteRenderer>().sprite = b;
+        jumpStart(()=> {
+
+            transform.localScale = new Vector3(sc, sc, 0);
+            GetComponent<SpriteRenderer>().sprite = c;
+            transform.localRotation = Quaternion.identity;
+        });
 
     }
 
-    void jumpStart(Action callback = null)
+    public void jumpStart(Action callback = null)
     {
         var r = 0;
         bool ttakai = nawPosition.position.y < terget.position.y;
@@ -30,7 +53,7 @@ public class GoriraJump : MonoBehaviour
             terget.position.y + (-terget.position.y + nawPosition.position.y) * curve.Evaluate(1-t);
 
             transform.localPosition = new Vector3(x, y, Mathf.Lerp(nawPosition.position.z, terget.position.z, t));
-            transform.localRotation = Quaternion.Euler(0, 0, (r += 30) * rotateDirecction);
+            transform.localRotation = Quaternion.Euler(0, 0, (r += 10) * rotateDirecction);
         }, callback));
     }
 
