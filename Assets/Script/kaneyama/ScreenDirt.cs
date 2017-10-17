@@ -7,7 +7,7 @@ public class ScreenDirt : MonoBehaviour
 {
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.001f);
         var img = GetComponent<Image>();
         img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
         StartCoroutine(Easing.Tween(0.2f, (t) =>
